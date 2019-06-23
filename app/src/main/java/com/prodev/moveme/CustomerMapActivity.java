@@ -101,11 +101,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
 
 
-
-
-
         //logout button
-
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,7 +168,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                         }
                     });
 
-                    pickupLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                     pickupLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupLocation).title("Pickup Location ").icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_pin)));
 
                     mRequest.setText("Getting your driver....");
@@ -182,6 +178,15 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
 
             }});
+
+        mSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomerMapActivity.this, CustomerSettingsActivity.class);
+                startActivity(intent);
+                return;
+            }
+        });
 
     }
 
