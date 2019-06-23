@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerSettingsActivity extends AppCompatActivity {
@@ -103,5 +104,15 @@ public class CustomerSettingsActivity extends AppCompatActivity {
 
     //save user's information
 
+    private void saveUserInformation(){
+        mName =mNameField.getText().toString();
+        mPhone=mPhoneField.getText().toString();
+        Map userInfo = new HashMap();
+        userInfo.put("name",mName);
+        userInfo.put("phone",mPhone);
 
+        mCustomerDatabase.updateChildren(userInfo);
+
+        finish();
+    }
 }
