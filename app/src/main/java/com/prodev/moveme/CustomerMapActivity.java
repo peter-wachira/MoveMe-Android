@@ -67,6 +67,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
     private Marker pickupMarker;
 
+    private Marker driverPickupMarker;
 
     private RadioGroup mRadioGroup;
 
@@ -181,8 +182,10 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
 
             }});
+
     }
-    private int radius = 1;
+
+   private int radius = 1;
     private boolean driverFound = false;
     private String driverFoundID;
     GeoQuery geoQuery;
@@ -210,8 +213,11 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                     map.put("customerRideId",customerId);
                     driverRef.updateChildren(map);
 
+
                     getDriverLocation();
                     mRequest.setText("Searching Driver location");
+
+
                 }
             }
 
@@ -246,8 +252,10 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     private  ValueEventListener  driverLocationRefListener;
     private Marker mDriverMarker;
     private void getDriverLocation(){
-        driverLocationRef = FirebaseDatabase.getInstance().getReference().child("driversWorking").child("driverFoundId").child("l");
+        //getting instance of the current user in the data base  (driverFoundID)
+        driverLocationRef = FirebaseDatabase.getInstance().getReference().child("driversWorking").child(driverFoundID).child("l");
 
+        //listen for changes in value in this node
        driverLocationRefListener = driverLocationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -282,6 +290,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                     loc1.setLatitude(pickupLocation.latitude);
                     loc1.setLongitude(pickupLocation.longitude);
 
+
                     Location loc2 = new Location("");
                     loc2.setLatitude(driverLatLng.latitude);
                     loc2.setLongitude(driverLatLng.longitude);
@@ -291,12 +300,11 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                     float distance = loc1.distanceTo(loc2);
                     if (distance<100){
 
-                        mRequest.setText("Driver's Here");
+                        mRequest.setText("Driver is Here");
 
                     }else{
-                        mRequest.setText("Driver Found" +  String.valueOf(distance)+"Metres " );
+                        mRequest.setText("Driver Found" +  String.valueOf(distance)+ "Metres " + "Away");
                     }
-
 
                     mDriverMarker = mMap.addMarker(new MarkerOptions().position(driverLatLng).title("your driver").icon(BitmapDescriptorFactory.fromResource(R.mipmap.truck_pointer)));
 
@@ -334,20 +342,21 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
         mGoogleApiClient.connect();
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
-        Timer autoUpdate = new Timer();
-        autoUpdate.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                      getDriverLocation();
-                    }
-                });
-            }
-        }, 0, 40); // updates each 40 secs
+//        Timer autoUpdate = new Timer();
+//        autoUpdate.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                      getDriverLocation();
+//                    }
+//                });
+//            }
+//        }, 0, 400); // updates each 40 secs
     }
     @Override
     public void onLocationChanged(final Location location) {
@@ -397,7 +406,12 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onStop() {
         super.onStop();
-//
+    }
+    public void onDestroy() {
+        super.onDestroy();
+        mDriverMarker.remove();
 
     }
+
+
 }

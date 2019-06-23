@@ -54,6 +54,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
     LocationRequest mLocationRequest = LocationRequest.create();
     private Button mLogout, mSettings, mRideStatus, mHistory;
     private String customerId ="";
+    private Boolean isLoggingOut = false;
 
 
     @Override
@@ -77,7 +78,8 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                isLoggingOut = true;
+                disconnectDriver();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(DriverMapsActivity.this, DriverLoginActivity.class);
                 startActivity(intent);
@@ -287,22 +289,21 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onResume() {
         super.onResume();
-       Timer autoUpdate = new Timer();
-        autoUpdate.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        getAssignedCustomerPickupLocation();
-                    }
-                });
-            }
-        }, 0, 10); // updates each 40 secs
+//       Timer autoUpdate = new Timer();
+//        autoUpdate.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        getAssignedCustomerPickupLocation();
+//                    }
+//                });
+//            }
+//        }, 0, 400); // updates each 40 secs
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
+    private void disconnectDriver(){
+
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("driversAvailable");
         ref.child(userid).removeValue();
@@ -315,6 +316,18 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
 
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+
+        //ensuring user is logged out before the activity is killed (fixing logout bug)
+        if (!isLoggingOut){
+            disconnectDriver();
+        }
+
 
     }
 }
