@@ -90,6 +90,8 @@ public class CustomerSettingsActivity extends AppCompatActivity {
 //                        mProfileImageUrl = map.get("profileImageUrl").toString();
 //                        Glide.with(getApplication()).load(mProfileImageUrl).into(mProfileImage);
 //                    }
+
+
                 }
             }
 
