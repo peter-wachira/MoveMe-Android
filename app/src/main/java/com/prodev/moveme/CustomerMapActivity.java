@@ -92,7 +92,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        mRadioGroup.check(R.id.UberX);
+        mRadioGroup.check(R.id.Van);
 
         mLogout = (Button) findViewById(R.id.logout);
         mRequest = (Button) findViewById(R.id.request);
@@ -109,7 +109,6 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(CustomerMapActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
                 return;
             }
         });
@@ -414,7 +413,6 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     }
     public void onDestroy() {
         super.onDestroy();
-        mDriverMarker.remove();
 
     }
 

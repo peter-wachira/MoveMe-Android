@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/truck_pointer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomerSettingsActivity"></activity>
+        <activity android:name=".DriverSettingsActivity"></activity>
+        <activity android:name=".CustomerSettingsActivity" />
         <activity android:name=".CustomerSignUpActivity" />
         <activity android:name=".DriverSignUpActivity" />
         <activity android:name=".CustomerMapActivity" />

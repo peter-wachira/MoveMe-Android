@@ -121,22 +121,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Van"
-                    android:id="@+id/UberX"/>
+                    android:id="@+id/Van"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pickup"
-                    android:id="@+id/UberBlack"/>
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lorry"
-                    android:id="@+id/UberXl"/>
+                    android:id="@+id/PickUp"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Truck"
-                    android:id="@+id/UberXXl"/>
+                    android:id="@+id/Truck"/>
+
             </RadioGroup>
 
             <Button
