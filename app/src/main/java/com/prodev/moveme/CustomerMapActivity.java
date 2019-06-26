@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Looper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -184,15 +185,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
             }
         });
 
-//        mHistory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(CustomerMapsActivity.this, HistoryActivity.class);
-//                intent.putExtra("customerOrDriver", "Customers");
-//                startActivity(intent);
-//                return;
-//            }
-//        });
+
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
@@ -219,7 +212,6 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     GeoQuery geoQuery;
     private void getClosestDriver(){
         DatabaseReference driverLocation = FirebaseDatabase.getInstance().getReference().child("driversAvailable");
-
         GeoFire geoFire = new GeoFire(driverLocation);
         geoQuery = geoFire.queryAtLocation(new GeoLocation(pickupLocation.latitude, pickupLocation.longitude), radius);
 
@@ -297,7 +289,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     |  Purpose:  Get's most updated driver location and it's always checking for movements.
     |
     |  Note:
-    |	   Even tho we used geofire to push the location of the driver we can use a normal
+    |	   Even tho I used geofire to push the location of the driver we can use a normal
     |      Listener to get it's location with no problem.
     |
     |      0 -> Latitude
@@ -516,10 +508,10 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     /*-------------------------------------------- onRequestPermissionsResult -----
     |  Function onRequestPermissionsResult
     |
-    |  Purpose:  Get permissions for our app if they didn't previously exist.
+    |  Purpose:  Get permissions for  app if they didn't previously exist.
     |
     |  Note:
-    |	requestCode: the nubmer assigned to the request that we've made. Each
+    |	requestCode: the number assigned to the request that we've made. Each
     |                request has it's own unique request code.
     |
     *-------------------------------------------------------------------*/

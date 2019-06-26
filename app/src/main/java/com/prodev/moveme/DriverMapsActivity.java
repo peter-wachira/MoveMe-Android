@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Looper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -136,6 +137,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
             public void onClick(View v) {
                 switch(status){
                     case 1:
+                        //driver is on the way
                         status=2;
                         erasePolylines();
                         if(destinationLatLng.latitude!=0.0 && destinationLatLng.longitude!=0.0){
@@ -174,15 +176,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
                 return;
             }
         });
-//        mHistory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(DriverMapActivity.this, HistoryActivity.class);
-//                intent.putExtra("customerOrDriver", "Drivers");
-//                startActivity(intent);
-//                return;
-//            }
-//        });
+
         getAssignedCustomer();
     }
 
@@ -213,6 +207,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
     private DatabaseReference assignedCustomerPickupLocationRef;
     private ValueEventListener assignedCustomerPickupLocationRefListener;
     private void getAssignedCustomerPickupLocation(){
+        Log.d("iddddd", customerId);
         assignedCustomerPickupLocationRef = FirebaseDatabase.getInstance().getReference().child("customerRequest").child(customerId).child("l");
         assignedCustomerPickupLocationRefListener = assignedCustomerPickupLocationRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -289,7 +284,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
 
     private void getAssignedCustomerInfo(){
         mCustomerInfo.setVisibility(View.VISIBLE);
-        DatabaseReference mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Customers").child(customerId);
+        DatabaseReference mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Customers").child("RWYdMDvQR1bw27LhvW2NuFp3vsu2");
         mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -315,7 +310,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
 
 
     private void endRide(){
-        mRideStatus.setText("picked customer");
+        mRideStatus.setText("Pick Customer");
         erasePolylines();
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -376,7 +371,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap  googleMap) {
         mMap = googleMap;
 
         mLocationRequest = new LocationRequest();
