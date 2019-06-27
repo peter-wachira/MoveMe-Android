@@ -117,6 +117,9 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
         mCustomerDestination = (TextView) findViewById(R.id.customerDestination);
 
         mWorkingSwitch = (Switch) findViewById(R.id.workingSwitch);
+
+        getAssignedCustomer();
+
         mWorkingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -177,7 +180,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
             }
         });
 
-        getAssignedCustomer();
+
     }
 
     private void getAssignedCustomer(){
@@ -284,7 +287,7 @@ public class DriverMapsActivity extends FragmentActivity implements OnMapReadyCa
 
     private void getAssignedCustomerInfo(){
         mCustomerInfo.setVisibility(View.VISIBLE);
-        DatabaseReference mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Customers").child("RWYdMDvQR1bw27LhvW2NuFp3vsu2");
+        DatabaseReference mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("Customers").child(customerId);
         mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/truck_pointer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HIstoryActivity"></activity>
+
 
         <service
             android:name=".onAppKilled"

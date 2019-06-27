@@ -35,12 +35,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    implementation 'com.google.android.gms:play-services-places:16.0.0'
+//    implementation 'com.google.android.gms:play-services-places:16.0.0'
     implementation 'com.google.firebase:firebase-storage:18.0.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.github.jd-alexander:library:1.1.0'
+    implementation "com.google.android.libraries.places:places:1.1.0"
+
 
 
     implementation 'com.google.android.material:material:1.0.0'
