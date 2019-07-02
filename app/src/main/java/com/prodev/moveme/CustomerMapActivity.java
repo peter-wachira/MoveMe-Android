@@ -123,7 +123,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        destinationLatLng = new LatLng(0.0,0.0);
+        destinationLatLng = new LatLng(36.8250,1.2921);
 
         mDriverInfo = (LinearLayout) findViewById(R.id.driverInfo);
 
@@ -231,16 +231,16 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
 
     }
-    private int radius = 1;
+    private int radius = 10;
     private Boolean driverFound = false;
     private String driverFoundID;
 
     GeoQuery geoQuery;
     private void getClosestDriver(){
         DatabaseReference driverLocation = FirebaseDatabase.getInstance().getReference().child("driversAvailable");
+
         GeoFire geoFire = new GeoFire(driverLocation);
         geoQuery = geoFire.queryAtLocation(new GeoLocation(pickupLocation.latitude, pickupLocation.longitude), radius);
-
         geoQuery.removeAllListeners();
 
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
@@ -257,7 +257,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                                     return;
                                 }
 
-                                if(driverMap.get("service").equals(requestService)){
+//                                if(driverMap.get("service").equals(requestService)){
                                     driverFound = true;
                                     driverFoundID = dataSnapshot.getKey();
 
@@ -274,7 +274,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                                     getDriverInfo();
                                     getHasRideEnded();
                                     mRequest.setText("Looking for Driver Location....");
-                                }
+//                                }
                             }
                         }
                         @Override
@@ -374,6 +374,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
 
     }
 
+
     /*-------------------------------------------- getDriverInfo -----
     |  Function(s) getDriverInfo
     |
@@ -395,7 +396,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                     if(dataSnapshot.child("phone")!=null){
                         mDriverPhone.setText(dataSnapshot.child("phone").getValue().toString());
                     }
-                    if(dataSnapshot.child("car")!=null){
+                    if(dataSnapshot.child("car")git !=null){
                         mDriverCar.setText(dataSnapshot.child("car").getValue().toString());
                     }
                     if(dataSnapshot.child("profileImageUrl").getValue()!=null){
