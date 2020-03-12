@@ -322,58 +322,78 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
     |      1 -> Longitudde
     |
     *-------------------------------------------------------------------*/
+
+    private  DatabaseReference driverLocationRef;
+    private  ValueEventListener  driverLocationRefListener;
     private Marker mDriverMarker;
-    private DatabaseReference driverLocationRef;
-    private ValueEventListener driverLocationRefListener;
     private void getDriverLocation(){
+        //getting instance of the current user in the data base  (driverFoundID)
         driverLocationRef = FirebaseDatabase.getInstance().getReference().child("driversWorking").child(driverFoundID).child("l");
+
+        //listen for changes in value in this node
         driverLocationRefListener = driverLocationRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //listen for datasnapshot & new requests
                 if(dataSnapshot.exists() && requestBol){
                     List<Object> map = (List<Object>) dataSnapshot.getValue();
                     double locationLat = 0;
-                    double locationLng = 0;
-                    if(map.get(0) != null){
+                    double locationLong = 0;
+
+                    mRequest.setText("Driver Found!");
+
+                    if(map.get(0)!=null){
+
                         locationLat = Double.parseDouble(map.get(0).toString());
                     }
-                    if(map.get(1) != null){
-                        locationLng = Double.parseDouble(map.get(1).toString());
+                    if(map.get(1)!=null){
+
+                        locationLong = Double.parseDouble(map.get(1).toString());
                     }
-                    LatLng driverLatLng = new LatLng(locationLat,locationLng);
-                    if(mDriverMarker != null){
+
+                    LatLng driverLatLng = new LatLng(locationLat,locationLong);
+
+                    if (mDriverMarker!=null){
+
                         mDriverMarker.remove();
                     }
+
+
+
+
                     Location loc1 = new Location("");
                     loc1.setLatitude(pickupLocation.latitude);
                     loc1.setLongitude(pickupLocation.longitude);
+
 
                     Location loc2 = new Location("");
                     loc2.setLatitude(driverLatLng.latitude);
                     loc2.setLongitude(driverLatLng.longitude);
 
-                    float distance = loc1.distanceTo(loc2);
+                    // distance is radius of the circumference of the pick up area
 
+                    float distance = loc1.distanceTo(loc2);
+                    String dist = String.valueOf(distance);
                     if (distance<100){
-                        mRequest.setText("Driver's Here");
+
+                        mRequest.setText("Driver is Here");
+
                     }else{
-                        mRequest.setText("Driver Found: " + String.valueOf(distance));
+                        mRequest.setText("Driver Found" +  dist  + "Metres " + "Away");
                     }
 
 
-
                     mDriverMarker = mMap.addMarker(new MarkerOptions().position(driverLatLng).title("your driver").icon(BitmapDescriptorFactory.fromResource(R.mipmap.truck_pointer)));
-                }
 
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-
     }
-
 
     /*-------------------------------------------- getDriverInfo -----
     |  Function(s) getDriverInfo
@@ -529,7 +549,7 @@ public class CustomerMapActivity extends FragmentActivity implements OnMapReadyC
                         getDriversAround();
                 }
             }
-        }
+           }
     };
 
     /*-------------------------------------------- onRequestPermissionsResult -----
