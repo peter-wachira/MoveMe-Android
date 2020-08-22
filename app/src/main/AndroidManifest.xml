@@ -18,7 +18,15 @@
         android:roundIcon="@mipmap/truck_pointer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomerSignUpActivity"></activity>
+
+
+        <service
+            android:name=".onAppKilled"
+            android:stopWithTask="false" />
+
+        <activity android:name=".DriverSettingsActivity" />
+        <activity android:name=".CustomerSettingsActivity" />
+        <activity android:name=".CustomerSignUpActivity" />
         <activity android:name=".DriverSignUpActivity" />
         <activity android:name=".CustomerMapActivity" />
         <!--
@@ -29,10 +37,9 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
+         <meta-data
+         android:name="com.google.android.geo.API_KEY"
+         android:value="@string/google_maps_key" />
         <activity
             android:name=".DriverMapsActivity"
             android:label="@string/title_activity_driver_maps" />
@@ -40,6 +47,7 @@
         <activity android:name=".MapActivity" />
         <activity android:name=".DriverLoginActivity" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

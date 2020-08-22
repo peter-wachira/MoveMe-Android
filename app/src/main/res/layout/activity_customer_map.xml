@@ -10,7 +10,8 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:layout="@layout/activity_map" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -39,20 +40,20 @@
                 android:text="Settings"/>
         </LinearLayout>
 
-        <!--<androidx.cardview.widget.CardView-->
-            <!--android:layout_below="@+id/buttons"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="20sp">-->
-            <!--<fragment-->
-                <!--android:id="@+id/place_autocomplete_fragment"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"-->
-                <!--/>-->
-        <!--</androidx.cardview.widget.CardView>-->
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp">
+            <fragment
+                android:id="@+id/place_autocomplete_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                />
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
-
 
 
 
@@ -69,12 +70,12 @@
             android:orientation="horizontal"
             android:background="@android:color/white"
             android:visibility="gone">
-            <!--<ImageView-->
-                <!--android:layout_width="100sp"-->
-                <!--android:layout_height="100sp"-->
-                <!--android:id="@+id/driverProfileImage"-->
-                <!--android:src="@mipmap/ic_default_user"-->
-                <!--android:padding="20sp"/>-->
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:id="@+id/driverProfileImage"
+                android:src="@mipmap/default_user"
+                android:padding="20sp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,22 +122,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Van"
-                    android:id="@+id/UberX"/>
+                    android:id="@+id/Van"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pickup"
-                    android:id="@+id/UberBlack"/>
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lorry"
-                    android:id="@+id/UberXl"/>
+                    android:id="@+id/Pickup"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Truck"
-                    android:id="@+id/UberXXl"/>
+                    android:id="@+id/Truck"/>
             </RadioGroup>
 
             <Button
