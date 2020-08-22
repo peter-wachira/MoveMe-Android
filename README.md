@@ -39,7 +39,7 @@ You can reach me via my personal email pwachira900@gmail.com
 
 ## License
 
-- This project is licensed under the MIT Open Source license Copyright (c) 2019. [LICENCE](https://gitlab.com/peter-wachira/MoveMe-Android/-/blob/troubleshootDevelopment/LICENSE)
+- This project is licensed under the MIT Open Source license Copyright (c) 2019. [LICENCE](https://github.com/peter-wachira/MoveMe-Android/blob/development/LICENCE)
 
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
 
